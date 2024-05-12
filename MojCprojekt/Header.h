@@ -1,17 +1,26 @@
 #pragma once
-
+#include <stdbool.h>
 typedef struct {
-	char team1Name[50];
+	char teamName[50];
 	char player1Name[50];
 	char player2Name[50];
-	short int score;
-}Team1;
-typedef struct {
-	char team2Name[50];
-	char player3Name[50];
-	char player4Name[50];
-	short int score2;
-}Team2;
+	unsigned short int numOfWins;
+	unsigned short int score;
+}TEAM;
 
-void inputingPlayers(Team1*,Team2*);
+void readingTeams();
+void inputingPlayers();
 void stringCheck(char*);
+int optionPrompt();
+int menu(int);
+int subMenu(int);
+int subMenuOptionPrompt();
+TEAM* choosingTeams();
+void playing(TEAM*, TEAM*,int);
+int playingOptions();
+
+void inputingNewTeams(TEAM**,TEAM**);
+void updateNumOfWinsInFile(TEAM*);
+
+void deleteTeam();
+bool teamExists(const char* teamName);
