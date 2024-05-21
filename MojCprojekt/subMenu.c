@@ -44,17 +44,8 @@ int subMenuOptionPrompt() {
 	printf("\t\t-----------Odaberite dva vec postojeca tima: 1 <-----------\n");
 	printf("\t\t-----------Unesite nove timove za igru:      2 <-----------\n");
 	printf("\t\t-----------Vrati se u meni:                  3 <-----------\n");
-	do {
-		printf("Unesite opciju: ");
-		if (scanf("%d", &opcija) != 1) { 
-			printf("Neispravan unos. Molimo unesite broj.\n");
-			
-			while (getchar() != '\n');
-		}
-		else if (opcija < 1 || opcija > 3) {  
-			printf("Neispravan unos. Unesite broj izmedu 1 i 3.\n");
-		}
-	} while (opcija < 1 || opcija > 3);
+	
+	opcija = choice(1, 3);
 
 	return opcija;
 }

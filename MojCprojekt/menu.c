@@ -48,17 +48,8 @@ int optionPrompt() {
 	printf("\t\t-----------Zapocni igru:                     3 <-----------\n");
 	printf("\t\t-----------Izbrisi tim iz baze podataka:     4 <-----------\n");
 	printf("\t\t-----------Izlaz iz programa:                5 <-----------\n");
-	do {
-		printf("Unesite opciju: ");
-		if (scanf("%d", &opcija) != 1) {  
-			printf("Neispravan unos. Molimo unesite broj.\n");
-			
-			while (getchar() != '\n');
-		}
-		else if (opcija < 1 || opcija > 5) {  
-			printf("Neispravan unos. Unesite broj izmedu 1 i 3.\n");
-		}
-	} while (opcija < 1 || opcija > 5);
+	
+	opcija = choice(1, 5);
 
 	return opcija;
 

@@ -51,7 +51,8 @@ void inputingPlayers() {
 void readingTeams() {
 	FILE* fpInput = fopen("teamsAndMembers.bin", "rb");
 	if (fpInput == NULL) {
-		perror("Unable to read file: ");
+		perror("Neuspjesno citanje daatoteke: ");
+		fclose(fpInput);
 		return;
 	}
 	int num;
@@ -88,7 +89,7 @@ void readingTeams() {
 
 TEAM* choosingTeams() {
 	char inputedName[50];
-	
+	puts(splitter);
 	printf("Unesite ime tima kojeg pretrazujete: ");
 	fgets(inputedName, 50, stdin);       stringCheck(inputedName);
 	TEAM* tempTeam = malloc(1*sizeof(TEAM));
@@ -99,15 +100,18 @@ TEAM* choosingTeams() {
 	FILE* fpInput = fopen("teamsAndMembers.bin", "rb");
 	if (fpInput == NULL) {
 		perror("Neuspjesno otvoren file za citanje: ");
+		free(tempTeam);
 		return NULL;
 	}
 	while(fread(tempTeam,sizeof(TEAM),1,fpInput)==1){
 		if (strcmp(tempTeam->teamName, inputedName) == 0) {
 			fclose(fpInput);
 			printf("Uspjesno pronaden tim pod trazenim imenom! \n");
+			
 			return tempTeam;
 		}
 	}
+	free(tempTeam);
 	fclose(fpInput);
 	return NULL;
 }
@@ -133,25 +137,25 @@ void playing(TEAM* firstTeam, TEAM* secondTeam, int gameMode) {
 			} while (team != 1 && team != 2);
 			if (team == 1) {
 				printf("Tim %s IGRA: ", firstTeam->teamName);
-				scanf("%d", &igra);
+				igra = choice(0, 162);
 				printf("Tim %s ZVANJA: ", firstTeam->teamName);
-				scanf("%d", &zvanjaPrvog);
+				zvanjaPrvog = choice(0, gameMode);
 				printf("Tim %s zvanja: ", secondTeam->teamName);
-				scanf("%d", &zvanjaDrugog);
+				zvanjaDrugog = choice(0, gameMode);
 				printf("\n");
 				firstTeam->score += igra + zvanjaPrvog;
 				secondTeam->score += (162 - igra) + zvanjaDrugog;
-				printf("Team %s: %d\t\t\t\tTeam %s: %d\n", firstTeam->teamName, firstTeam->score, secondTeam->teamName, secondTeam->score);
+				printf("Team %s: %d\t\t\tTeam %s: %d\n", firstTeam->teamName, firstTeam->score, secondTeam->teamName, secondTeam->score);
 				printf("Broj pobjeda: %d\t\t\t\tBroj pobjeda: %d\n", numOfWins1, numOfwins2);
 				printf("-------------------------------------------------------------------------------------\n");
 			}
 			else {
 				printf("Tim %s IGRA: ", secondTeam->teamName);
-				scanf("%d", &igra);
+				igra = choice(0, 162);
 				printf("Tim %s ZVANJA: ", secondTeam->teamName);
-				scanf("%d", &zvanjaDrugog);
+				zvanjaDrugog = choice(0, gameMode);
 				printf("Tim %s zvanja: ", firstTeam->teamName);
-				scanf("%d", &zvanjaPrvog);
+				zvanjaPrvog = choice(0, gameMode);
 				printf("\n");
 				secondTeam->score += igra + zvanjaDrugog;
 				firstTeam->score += (162 - igra) + zvanjaPrvog;
@@ -245,13 +249,13 @@ void deleteTeam() {
 
 	FILE* originalFile = fopen("teamsAndMembers.bin", "rb");
 	if (originalFile == NULL) {
-		perror("Greska prilikom otvaranja originalnog dikumenta: ");
+		perror("Greska prilikom otvaranja originalnog dokumenta: ");
 		return;
 	}
 
 	FILE* tempFile = fopen("temp.bin", "wb");
 	if (tempFile == NULL) {
-		perror("Greska prilikom kreiranja privremeog tima: ");
+		perror("Greska prilikom kreiranja privremenog tima: ");
 		fclose(originalFile);
 		return;
 	}
@@ -283,23 +287,14 @@ void deleteTeam() {
 
 int playingOptions() {
 	int gameMode;
-	
-		printf("\nIgra do 301  broj -> 1\n");
-		printf("Igra do 501  broj -> 2\n");
-		printf("Igra do 1001 broj -> 3\n");
-		do {
-			printf("Unesite opciju: ");
-			if (scanf("%d", &gameMode) != 1) {
-				printf("Neispravan unos. Molimo unesite broj.\n");
-
-				while (getchar() != '\n');
-			}
-			else if (gameMode < 1 || gameMode > 3) {
-				printf("Neispravan unos. Unesite broj izmedu 1 i 3.\n");
-			}
-		} while (gameMode < 1 || gameMode > 3);
+	puts(splitter);
+	printf("Igra do 301  broj -> 1\n");
+	printf("Igra do 501  broj -> 2\n");
+	printf("Igra do 1001 broj -> 3\n");
+	puts(splitter);
+	gameMode = choice(1, 3);
 		
-		system("cls");
+	system("cls");
 
 	if(gameMode==1){
 		return 301;
@@ -370,4 +365,21 @@ void stringCheck(char* string) {
 	if (string[n - 1] == '\n') {
 		string[n - 1] = '\0';
 	}
+}
+
+int choice(int ll,int ul) {
+	int opcija;
+	do {
+		printf("Unesite opciju: ");
+		if (scanf("%d", &opcija) != 1) {
+			printf("Neispravan unos. Molimo unesite broj.\n");
+
+			while (getchar() != '\n');
+		}
+		else if (opcija < ll || opcija > ul) {
+			printf("Neispravan unos. Unesite broj izmedu %d i %d.\n",ll,ul);
+		}
+	} while (opcija < ll || opcija > ul);
+
+	return opcija;
 }

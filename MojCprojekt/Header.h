@@ -24,3 +24,5 @@ void updateNumOfWinsInFile(TEAM*);
 
 void deleteTeam();
 bool teamExists(const char* teamName);
+
+int choice(int,int);
