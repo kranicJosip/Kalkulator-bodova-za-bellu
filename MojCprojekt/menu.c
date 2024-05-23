@@ -4,20 +4,21 @@
 #include "Header.h"
 
 int menu(int status) {
+	
+	int option1 = optionPrompt();
 
-	int option = optionPrompt();
 	int submenu = 0;
 
-	switch (option)
+	switch (option1)
 	{
-	case 1:
+	case INPUTING_PLAYERS:
 		inputingPlayers();
 		
 		break;
-	case 2:
+	case READING_TEAMS:
 		readingTeams();
 		break;
-	case 3:
+	case START_GAME:
 		status = 1;
 		while (status) {
 			system("cls");
@@ -25,10 +26,10 @@ int menu(int status) {
 		}
 		status = 10;
 		break;
-	case 4:
+	case DELETE_TEAM:
 		deleteTeam();
 		break;
-	case 5:
+	case EXIT_PROGRAM:
 		status = 0;
 		break;
 	default:
@@ -44,7 +45,7 @@ int optionPrompt() {
 
 	printf("\t\t-----------Odaberite jednu od sljedecih opcija ------------\n");
 	printf("\t\t-----------Upisivanje novih igraca i timova: 1 <-----------\n");
-	printf("\t\t-----------Ispisivanje svih upianih timova:  2 <-----------\n");
+	printf("\t\t-----------Ispisivanje svih upisanih timova: 2 <-----------\n");
 	printf("\t\t-----------Zapocni igru:                     3 <-----------\n");
 	printf("\t\t-----------Izbrisi tim iz baze podataka:     4 <-----------\n");
 	printf("\t\t-----------Izlaz iz programa:                5 <-----------\n");

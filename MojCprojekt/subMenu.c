@@ -8,6 +8,7 @@ TEAM* secondTeam = NULL;
 int gameMode;
 int subMenu(int status) {
 	int option = subMenuOptionPrompt();
+
 	switch (option){
 	case 1:
 		getchar();

@@ -8,6 +8,17 @@ typedef struct {
 	unsigned short int score;
 }TEAM;
 
+
+typedef enum {
+	INPUTING_PLAYERS = 1,
+	READING_TEAMS,
+	START_GAME,
+	DELETE_TEAM,
+	EXIT_PROGRAM
+} MenuOption;
+
+
+
 void readingTeams();
 void inputingPlayers();
 void stringCheck(char*);

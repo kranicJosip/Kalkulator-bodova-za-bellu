@@ -52,8 +52,7 @@ void readingTeams() {
 	FILE* fpInput = fopen("teamsAndMembers.bin", "rb");
 	if (fpInput == NULL) {
 		perror("Neuspjesno citanje daatoteke: ");
-		fclose(fpInput);
-		return;
+		return ;
 	}
 	int num;
 
