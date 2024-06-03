@@ -1,39 +1,60 @@
 #pragma once
 #include <stdbool.h>
+#define MAX_STRING 100
+extern const char splitter[50];
+
+#define CHECK_FILE_EXIST(file) \
+    do { \
+        if ((file) == NULL) { \
+            perror("Greska pri otvaranju dokumenta: "); \
+            return; \
+        } \
+    } while (0)
+
 typedef struct {
-	char teamName[50];
-	char player1Name[50];
-	char player2Name[50];
+	char teamName[MAX_STRING];
+	char player1Name[MAX_STRING];
+	char player2Name[MAX_STRING];
 	unsigned short int numOfWins;
 	unsigned short int score;
 }TEAM;
 
-
 typedef enum {
-	INPUTING_PLAYERS = 1,
+	INPUTING_TEAMS = 1,
 	READING_TEAMS,
 	START_GAME,
 	DELETE_TEAM,
+	PRINT_SORTED,
 	EXIT_PROGRAM
-} MenuOption;
+} MENU_OPTIONS;
 
+typedef enum {
+	CHOOSE_EXISTING_TEAMS = 1,
+	INPUTING_NEW_TEAMS,
+	BACK_TO_MENU,
+} SUB_MENU_OPTIONS;
 
-
-void readingTeams();
-void inputingPlayers();
+//generic functions:
+bool teamExists(const char* teamName);
 void stringCheck(char*);
-int optionPrompt();
+int choice(const int, const int);
+
+//menuFunctions:
 int menu(int);
+int optionPrompt();
+void inputingPlayers();
+void readingTeams();
+void deleteTeam();
+void printingSortedTeams();
+int compareTeamsByWins(const void*, const void*);
+
+//subMenuOptons:
 int subMenu(int);
 int subMenuOptionPrompt();
 TEAM* choosingTeams();
-void playing(TEAM*, TEAM*,int);
 int playingOptions();
-
-void inputingNewTeams(TEAM**,TEAM**);
+void playing(TEAM*, TEAM*, const int);
 void updateNumOfWinsInFile(TEAM*);
+int inputingNewTeams(TEAM**, TEAM**);
 
-void deleteTeam();
-bool teamExists(const char* teamName);
 
-int choice(int,int);

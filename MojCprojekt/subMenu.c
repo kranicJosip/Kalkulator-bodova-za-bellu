@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include "Header.h"
 
@@ -9,44 +8,36 @@ int gameMode;
 int subMenu(int status) {
 	int option = subMenuOptionPrompt();
 
-	switch (option){
-	case 1:
-		getchar();
+	switch (option) {
+	case CHOOSE_EXISTING_TEAMS:
+		
 		firstTeam = choosingTeams();
 		if (firstTeam == NULL) {
 			printf("Nije pronaden tim pod tim imenom! \n");
+			system("pause");
 			break;
 		}
 		secondTeam = choosingTeams();
 		if (secondTeam == NULL) {
 			printf("Nije pronaden tim pod tim imenom! \n");
+			system("pause");
 			break;
 		}
 		gameMode = playingOptions();
-		playing(firstTeam, secondTeam,gameMode);
+		playing(firstTeam, secondTeam, gameMode);
 		break;
-	case 2:
-		inputingNewTeams(&firstTeam, &secondTeam);
+	case INPUTING_NEW_TEAMS:
+		if (inputingNewTeams(&firstTeam, &secondTeam)) {
+			return status;
+		}
 		gameMode = playingOptions();
 		playing(firstTeam, secondTeam, gameMode);
-	case 3:
+		break;
+	case BACK_TO_MENU:
 		status = 0;
 		break;
 	default:
 		break;
 	}
 	return status;
-}
-
-
-int subMenuOptionPrompt() {
-	int opcija;
-	printf("\t\t-----------Odaberite jednu od sljedecih opcija ------------\n");
-	printf("\t\t-----------Odaberite dva vec postojeca tima: 1 <-----------\n");
-	printf("\t\t-----------Unesite nove timove za igru:      2 <-----------\n");
-	printf("\t\t-----------Vrati se u meni:                  3 <-----------\n");
-	
-	opcija = choice(1, 3);
-
-	return opcija;
 }

@@ -130,7 +130,9 @@
     <ClCompile Include="functions.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="menu.c" />
+    <ClCompile Include="menuFunctions.c" />
     <ClCompile Include="subMenu.c" />
+    <ClCompile Include="subMenuFunctions.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />

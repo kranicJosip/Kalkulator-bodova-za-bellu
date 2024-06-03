@@ -27,6 +27,12 @@
     <ClCompile Include="subMenu.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="menuFunctions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="subMenuFunctions.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
