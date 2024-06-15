@@ -6,7 +6,6 @@ na redu za mješati špil karata.
 */
 
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include "Header.h"
 

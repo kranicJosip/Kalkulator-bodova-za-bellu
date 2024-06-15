@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
 #include "Header.h"
 
@@ -35,6 +34,7 @@ int menu(int status) {
 
 	case EXIT_PROGRAM:
 		status = 0;
+		return status;
 		break;
 	default:
 		break;

@@ -69,9 +69,17 @@ int playingOptions() {
 	return 1001;
 }
 
+int getMaxTeamNameLength(const TEAM* const team1, const TEAM* const team2) {
+	int len1 = strlen(team1->teamName);
+	int len2 = strlen(team2->teamName);
+	return (len1 > len2) ? len1 : len2;
+}
+
 //Glavna funkcija u koju igraci upisuju bodove i koja ispisuje trenutno stanje:
-void playing(TEAM* firstTeam, TEAM* secondTeam, const int gameMode) {
+void playing( TEAM* const firstTeam , TEAM* const secondTeam, const int gameMode) {
+	static int gamesPlayed = 0;
 	int numOfWins1 = 0, numOfwins2 = 0;
+	int maxLength = getMaxTeamNameLength(firstTeam,secondTeam);
 	do {
 
 		while (firstTeam->score <= gameMode && secondTeam->score <= gameMode) {
@@ -79,14 +87,10 @@ void playing(TEAM* firstTeam, TEAM* secondTeam, const int gameMode) {
 			int zvanjaPrvog = 0;
 			int zvanjaDrugog = 0;
 			int team;
-			do {
-				printf("Unos bodova za tim %s tipka -> 1 <-  Unos bodova za tim %s tipka -> 2 <- \n", firstTeam->teamName, secondTeam->teamName);
-				team = choice(1, 2);
-				printf("\n");
-				if (team != 1 && team != 2) {
-					printf("Unesena kriva opcija! ");
-				}
-			} while (team != 1 && team != 2);
+			
+			printf("Unos bodova za tim %s tipka -> 1 <-  Unos bodova za tim %s tipka -> 2 <-  Izlaz iz igre -> 3 <-\n", firstTeam->teamName, secondTeam->teamName);
+			team = choice(1, 3);
+			
 			if (team == 1) {
 				printf("Tim %s IGRA: ", firstTeam->teamName);
 				igra = choice(0, 162);
@@ -97,11 +101,11 @@ void playing(TEAM* firstTeam, TEAM* secondTeam, const int gameMode) {
 				printf("\n");
 				firstTeam->score += igra + zvanjaPrvog;
 				secondTeam->score += (162 - igra) + zvanjaDrugog;
-				printf("Team %s: %d\t\t\tTeam %s: %d\n", firstTeam->teamName, firstTeam->score, secondTeam->teamName, secondTeam->score);
-				printf("Broj pobjeda: %d\t\t\t\tBroj pobjeda: %d\n", numOfWins1, numOfwins2);
+				printf("Team %-*s: %3d\t\tTeam %-*s: %3d\n", maxLength, firstTeam->teamName, firstTeam->score,maxLength, secondTeam->teamName, secondTeam->score);
+				printf("Broj pobjeda: %2d\t\tBroj pobjeda: %2d\n", numOfWins1, numOfwins2);
 				printf("-------------------------------------------------------------------------------------\n");
 			}
-			else {
+			else if(team==2){
 				printf("Tim %s IGRA: ", secondTeam->teamName);
 				igra = choice(0, 162);
 				printf("Tim %s ZVANJA: ", secondTeam->teamName);
@@ -111,9 +115,14 @@ void playing(TEAM* firstTeam, TEAM* secondTeam, const int gameMode) {
 				printf("\n");
 				secondTeam->score += igra + zvanjaDrugog;
 				firstTeam->score += (162 - igra) + zvanjaPrvog;
-				printf("Team %s: %d\t\t\tTeam %s: %d\n", firstTeam->teamName, firstTeam->score, secondTeam->teamName, secondTeam->score);
-				printf("Broj pobjeda: %d\t\t\t\tBroj pobjeda: %d\n", numOfWins1, numOfwins2);
+				printf("Team %-*s: %3d\t\tTeam %-*s: %3d\n",maxLength, firstTeam->teamName, firstTeam->score,maxLength, secondTeam->teamName, secondTeam->score);
+				printf("Broj pobjeda: %2d\t\tBroj pobjeda: %2d\n", numOfWins1, numOfwins2);
 				printf("-------------------------------------------------------------------------------------\n");
+			}
+			else {
+				printf("Igra prekinuta rezultat se brise!\n");
+				system("pause");
+				return;
 			}
 
 		}
@@ -129,15 +138,22 @@ void playing(TEAM* firstTeam, TEAM* secondTeam, const int gameMode) {
 		}
 
 		if (numOfWins1 == 2) {
+			puts(splitter);
 			printf("Tim %s je pobjedio! \n", firstTeam->teamName);
+			puts(splitter);
 			updateNumOfWinsInFile(firstTeam);
 
 		}
 		else if (numOfwins2 == 2) {
+			puts(splitter);
 			printf("Tim %s je pobjedio! \n", secondTeam->teamName);
+			puts(splitter);
 			updateNumOfWinsInFile(secondTeam);
 		}
 	} while (numOfWins1 < 2 && numOfwins2 < 2);
+
+	gamesPlayed++; 
+	printf("\nOdigrano igara otkad je program upaljen: %d\n", gamesPlayed);
 
 	system("pause");
 
@@ -145,7 +161,7 @@ void playing(TEAM* firstTeam, TEAM* secondTeam, const int gameMode) {
 }
 
 //Funkcija koja nakon sto igra zavrsi azurira broj pobjeda pobjednickog tima u dokumentu;
-void updateNumOfWinsInFile(TEAM* selectedTeam) {
+void updateNumOfWinsInFile(TEAM* const selectedTeam) {
 	FILE* file = fopen("teamsAndMembers.bin", "rb+");
 	CHECK_FILE_EXIST(file);
 
@@ -166,7 +182,7 @@ void updateNumOfWinsInFile(TEAM* selectedTeam) {
 }
 
 //Funkcija ubacuje 2 nova tima u dokument :
-int inputingNewTeams(TEAM** firstTeam, TEAM** secondTeam) {
+int inputingNewTeams(TEAM** const firstTeam, TEAM** const secondTeam) {
 	FILE* teamsAndMembers = NULL;
 	teamsAndMembers = fopen("teamsAndMembers.bin", "rb+");
 	if (teamsAndMembers == NULL) {

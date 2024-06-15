@@ -29,7 +29,7 @@ bool teamExists(const char* teamName) {
 }
 
 //Funkcija provjerava postoji li \n na kraju stringa i uklanja ga ako postoji:
-void stringCheck(char* string) {
+void stringCheck(char* const string) {
 	int n = strlen(string);
 	if (string[n - 1] == '\n') {
 		string[n - 1] = '\0';

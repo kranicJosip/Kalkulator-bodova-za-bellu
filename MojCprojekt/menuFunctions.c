@@ -70,10 +70,7 @@ void inputingPlayers() {
 void readingTeams() {
 	FILE* fpInput = fopen("teamsAndMembers.bin", "rb");
 	CHECK_FILE_EXIST(fpInput);
-	/*if (fpInput == NULL) {
-		perror("Neuspjesno citanje daatoteke: ");
-		return;
-	}*/
+	
 	int num;
 
 	fseek(fpInput, 0, SEEK_END);

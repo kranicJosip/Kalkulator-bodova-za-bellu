@@ -32,9 +32,12 @@ int subMenu(int status) {
 		}
 		gameMode = playingOptions();
 		playing(firstTeam, secondTeam, gameMode);
+		free(firstTeam); free(secondTeam);
+		firstTeam = NULL; secondTeam = NULL;
 		break;
 	case BACK_TO_MENU:
 		status = 0;
+		return status;
 		break;
 	default:
 		break;

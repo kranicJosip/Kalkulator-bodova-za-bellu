@@ -36,7 +36,7 @@ typedef enum {
 
 //generic functions:
 bool teamExists(const char* teamName);
-void stringCheck(char*);
+void stringCheck(char* const);
 int choice(const int, const int);
 
 //menuFunctions:
@@ -52,9 +52,10 @@ int compareTeamsByWins(const void*, const void*);
 int subMenu(int);
 int subMenuOptionPrompt();
 TEAM* choosingTeams();
+int getMaxTeamNameLength(const TEAM* const,const TEAM* const);
 int playingOptions();
-void playing(TEAM*, TEAM*, const int);
-void updateNumOfWinsInFile(TEAM*);
-int inputingNewTeams(TEAM**, TEAM**);
+void playing(TEAM* const, TEAM* const, const int);
+void updateNumOfWinsInFile(TEAM* const);
+int inputingNewTeams(TEAM** const, TEAM** const);
 
 
