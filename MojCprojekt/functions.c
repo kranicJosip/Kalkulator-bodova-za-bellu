@@ -8,7 +8,7 @@
 
 
 //Funkcija provjerava postoji li vec tim pod odredenim imenom u dokumentu:
-bool teamExists(const char* teamName) {
+bool teamExists(const char* const teamName) {
 	FILE* file = fopen("teamsAndMembers.bin", "rb");
 	if (file == NULL) {
 		perror("Neuspjesno otvaranje dokumenta: ");

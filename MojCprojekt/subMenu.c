@@ -25,6 +25,8 @@ int subMenu(int status) {
 		}
 		gameMode = playingOptions();
 		playing(firstTeam, secondTeam, gameMode);
+		free(firstTeam);	free(secondTeam);
+		firstTeam = NULL;	secondTeam = NULL;
 		break;
 	case INPUTING_NEW_TEAMS:
 		if (inputingNewTeams(&firstTeam, &secondTeam)) {

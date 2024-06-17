@@ -64,6 +64,8 @@ void inputingPlayers() {
 	printf("Tim uspjesno dodan.\n");
 	free(team);
 	fclose(teamsAndMembers);
+	team = NULL;
+	
 }
 
 //Funkcija cita sve timove u dokumentu i ispisuje ih
@@ -100,6 +102,7 @@ void readingTeams() {
 		printf("\n");
 	}
 	free(teamsInfo);
+	teamsInfo = NULL;
 	fclose(fpInput);
 }
 
@@ -184,6 +187,7 @@ void printingSortedTeams() {
 	}
 
 	free(teams);
+	teams = NULL;
 }
 
 //pomocna funkcija prethodonoj funkciji vraca pozitivnu/negativnu vrijednost ili 0:

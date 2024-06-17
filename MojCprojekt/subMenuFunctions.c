@@ -101,7 +101,7 @@ void playing( TEAM* const firstTeam , TEAM* const secondTeam, const int gameMode
 				printf("\n");
 				firstTeam->score += igra + zvanjaPrvog;
 				secondTeam->score += (162 - igra) + zvanjaDrugog;
-				printf("Team %-*s: %3d\t\tTeam %-*s: %3d\n", maxLength, firstTeam->teamName, firstTeam->score,maxLength, secondTeam->teamName, secondTeam->score);
+				printf("Team %-*s: %3d\t\t\tTeam %-*s: %3d\n", maxLength, firstTeam->teamName, firstTeam->score,maxLength, secondTeam->teamName, secondTeam->score);
 				printf("Broj pobjeda: %2d\t\tBroj pobjeda: %2d\n", numOfWins1, numOfwins2);
 				printf("-------------------------------------------------------------------------------------\n");
 			}
@@ -115,7 +115,7 @@ void playing( TEAM* const firstTeam , TEAM* const secondTeam, const int gameMode
 				printf("\n");
 				secondTeam->score += igra + zvanjaDrugog;
 				firstTeam->score += (162 - igra) + zvanjaPrvog;
-				printf("Team %-*s: %3d\t\tTeam %-*s: %3d\n",maxLength, firstTeam->teamName, firstTeam->score,maxLength, secondTeam->teamName, secondTeam->score);
+				printf("Team %-*s: %3d\t\t\tTeam %-*s: %3d\n",maxLength, firstTeam->teamName, firstTeam->score,maxLength, secondTeam->teamName, secondTeam->score);
 				printf("Broj pobjeda: %2d\t\tBroj pobjeda: %2d\n", numOfWins1, numOfwins2);
 				printf("-------------------------------------------------------------------------------------\n");
 			}
@@ -177,6 +177,7 @@ void updateNumOfWinsInFile(TEAM* const selectedTeam) {
 			return;
 		}
 	}
+	printf("Broj pobjeda neuspjesno azuriran!!\n");
 	fclose(file);
 	return;
 }

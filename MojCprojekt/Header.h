@@ -35,7 +35,7 @@ typedef enum {
 } SUB_MENU_OPTIONS;
 
 //generic functions:
-bool teamExists(const char* teamName);
+bool teamExists(const char* const teamName);
 void stringCheck(char* const);
 int choice(const int, const int);
 
